@@ -1,0 +1,6 @@
+node_modules/*
+.git
+.gitignore
+.github/*
+create-test-env-run-test.sh
+sonar-maven-breaker.py

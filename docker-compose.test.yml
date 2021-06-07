@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+    nistagram-front-end:
+      build: 
+        context: .
+        dockerfile: Dockerfile
+        target: nistagramFrontTest
+      command: bash -c "sonar-scanner -P${STAGE} -Dsonar.projectKey=${SONAR_PROJ_KEY_SVC} -Dsonar.organization=${SONARCLOUD_ORGANIZATION} -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN} -Dsonar.branch.name=${BRANCH_NAME} -Dsonar.pullrequest.key=${PULL_KEY} -Dsonar.pullrequest.branch=${PULL_REQUEST_BRANCH} -Dsonar.pullrequest.base=${BASE}"
