@@ -1,7 +1,5 @@
 # Pull base image.
-FROM node:6
-
-LABEL maintainer "Gabriel Araujo <contact@gbiel.com>"
+FROM node:6 AS nistagramFrontTest
 
 ENV SONAR_SCANNER_VERSION 2.8
 ENV SONAR_SCANNER_HOME /home/sonar-scanner-${SONAR_SCANNER_VERSION}
