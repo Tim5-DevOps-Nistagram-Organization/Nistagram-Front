@@ -10,4 +10,5 @@ COPY ./package-lock.json ./
 RUN npm install
 RUN echo "PATHHHHHH  $PATH"
 RUN npm install -g sonarqube-scanner
+RUN sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /bin/sonar-scanner/bin/sonar-scanner
 COPY ./ ./
