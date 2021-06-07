@@ -5,4 +5,5 @@ services:
         context: .
         dockerfile: Dockerfile
         target: nistagramFrontTest
+      container_name: nistagram-front
       command: bash -c "sonar-scanner -P${STAGE} -Dsonar.projectKey=${SONAR_PROJ_KEY_SVC} -Dsonar.organization=${SONARCLOUD_ORGANIZATION} -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN} -Dsonar.branch.name=${BRANCH_NAME} -Dsonar.pullrequest.key=${PULL_KEY} -Dsonar.pullrequest.branch=${PULL_REQUEST_BRANCH} -Dsonar.pullrequest.base=${BASE}"
