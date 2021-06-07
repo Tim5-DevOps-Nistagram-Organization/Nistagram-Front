@@ -1,4 +1,8 @@
-FROM maven:3.8.1-jdk-11 AS nistagramFrontTest
-ARG STAGE=test
-WORKDIR /usr/src/server
-COPY . .
+FROM node:13.12.0-alpine AS nistagramFrontTest
+ARG API="http://localhost:8080/"
+WORKDIR /usr/src
+ENV PATH /app/node_modules/.bin:$PATH
+COPY ./package.json ./
+COPY ./package-lock.json ./
+RUN npm install
+COPY ./ ./
