@@ -1,6 +1,5 @@
 FROM node:13.12.0-alpine AS nistagramFrontTest
 ARG API="http://localhost:8080/"
-WORKDIR /usr/src
 ENV PATH /app/node_modules/.bin:$PATH
 COPY ./package.json ./
 COPY ./package-lock.json ./
