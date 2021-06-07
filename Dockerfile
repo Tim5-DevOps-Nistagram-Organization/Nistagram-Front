@@ -1,6 +1,6 @@
-FROM node:alpine as java
-
-ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk/jre
+FROM centos
+RUN yum install -y wget java-1.8.0-openjdk zip unzip
+RUN echo "JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")" | tee -a /etc/profile && source /etc/profile && echo $JAVA_HOME
 
 FROM node:13.12.0-alpine AS nistagramFrontTest
 ARG API="http://localhost:8080/"
@@ -9,5 +9,4 @@ COPY ./package.json ./
 COPY ./package-lock.json ./
 RUN npm install
 RUN npm install -g sonarqube-scanner
-ENV PATH $PATH:/sonar-scanner/bin:/usr/lib/jvm/java-1.8-openjdk/jre/bin/java:/usr/lib/jvm/java-1.8-openjdk/bin
 COPY ./ ./
