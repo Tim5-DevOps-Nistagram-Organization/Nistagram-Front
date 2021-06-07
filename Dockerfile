@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:alpine as java
 
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk/jre
 
@@ -9,5 +9,5 @@ COPY ./package.json ./
 COPY ./package-lock.json ./
 RUN npm install
 RUN npm install -g sonarqube-scanner
-ENV PATH $PATH:/sonar-scanner/bin:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
+ENV PATH $PATH:/sonar-scanner/bin:--from=java /usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 COPY ./ ./
