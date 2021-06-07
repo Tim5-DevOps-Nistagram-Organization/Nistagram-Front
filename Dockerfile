@@ -6,7 +6,7 @@ RUN ls /usr; exit 0
 RUN ls /usr/lib; exit 0
 RUN ls /usr/lib/jvm; exit 0
 RUN ls -1tr /usr/lib/jvm/ | head -1; exit 0
-ENV JAVA_HOME="/usr/lib/jvm/$(ls -1tr /usr/lib/jvm/ | head -1)"
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 ENV PATH=$JAVA_HOME/bin:$PATH
 RUN which java
 RUN echo $JAVA_HOME
