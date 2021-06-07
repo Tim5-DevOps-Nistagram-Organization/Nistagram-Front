@@ -3,8 +3,8 @@ RUN apk add openjdk11 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/com
 RUN java -version
 RUN ls
 RUN ls /usr; exit 0
-RUN ls /usr/local; exit 0
-RUN ls /usr/local/java; exit 0
+RUN ls /usr/lib; exit 0
+RUN ls /usr/lib/jvm; exit 0
 ENV JAVA_HOME=/usr/local/java
 ENV PATH=$JAVA_HOME/bin:$PATH
 RUN which java
