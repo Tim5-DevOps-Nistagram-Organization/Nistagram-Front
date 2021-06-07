@@ -5,6 +5,9 @@ RUN npm install
 COPY ./ ./
 RUN apk add openjdk11 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
 RUN java -version
+RUN ls 
+ENV JAVA_HOME=/usr/bin/java
+ENV PATH=$JAVA_HOME/bin:$PATH
 RUN which java
 RUN echo $JAVA_HOME
 RUN npm install -g sonarqube-scanner
