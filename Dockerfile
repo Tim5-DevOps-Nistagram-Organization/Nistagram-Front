@@ -1,8 +1,5 @@
 FROM node:13.12.0-alpine AS nistagramFrontTest
 RUN npm install -g sonarqube-scanner
-RUN ls -1tr /root/.sonar/native-sonar-scanner/ | head -1
-RUN ls -1tr /root/.sonar/native-sonar-scanner/
-RUN ls /root/.sonar/native-sonar-scanner/
 RUN sonar-scanner
 RUN ls -1tr /root/.sonar/native-sonar-scanner/ | head -1
 RUN ls -1tr /root/.sonar/native-sonar-scanner/
