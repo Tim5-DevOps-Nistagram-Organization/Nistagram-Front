@@ -8,7 +8,8 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY ./package.json ./
 COPY ./package-lock.json ./
 RUN npm install
-RUN echo "PATHHHHHH  $PATH"
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+ENV PATH="$JAVA_HOME/bin:${PATH}"
+RUN echo $PATH
 RUN npm install -g sonarqube-scanner
-RUN sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /bin/sonar-scanner/bin/sonar-scanner
 COPY ./ ./
