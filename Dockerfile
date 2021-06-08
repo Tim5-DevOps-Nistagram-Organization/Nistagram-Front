@@ -7,7 +7,7 @@ ENV PATH=$JAVA_HOME/bin:$PATH
 RUN npm install -g sonarqube-scanner \
     sonar-scanner; exit 0 \
     sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' "/root/.sonar/native-sonar-scanner/$(ls -1tr /root/.sonar/native-sonar-scanner/ | head -1)/bin/sonar-scanner" \
-    chmod 755  "/root/.sonar/native-sonar-scanner/$(ls -1tr /root/.sonar/native-sonar-scanner/ | head -1)/jre/bin/java" 
+    chmod 755  "/root/.sonar/native-sonar-scanner/$(ls -1tr /root/.sonar/native-sonar-scanner/ | head -1)/jre/bin/java"
 
 WORKDIR /app
 COPY ./package.json ./
