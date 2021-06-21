@@ -10,8 +10,21 @@ RUN npm install -g sonarqube-scanner \
     chmod 755  "/root/.sonar/native-sonar-scanner/$(ls -1tr /root/.sonar/native-sonar-scanner/ | head -1)/jre/bin/java"
 
 WORKDIR /app
-COPY ./package.json ./
-COPY ./package-lock.json ./
+COPY .package*.json ./
 RUN npm install
-COPY ./ ./
+COPY . .
 
+FROM node:13.12.0-alpine as nistagramFrontRuntime
+# set working directory
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
+# install app dependencies
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install --silent
+RUN npm install react-scripts -g --silent
+# add app
+COPY . ./
+EXPOSE 3000
+CMD ["npm", "start"]
