@@ -1,0 +1,12 @@
+form {
+    width: 33%;
+    margin-left: 33%;
+    margin-right: 33%;
+}
+.field {
+    width: 100%;
+}
+pre {
+    white-space: pre-line;
+    font-family: BlinkMacSystemFont, Roboto, Arial, sans-serif;
+}
