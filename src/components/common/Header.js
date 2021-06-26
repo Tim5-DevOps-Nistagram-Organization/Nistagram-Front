@@ -32,6 +32,12 @@ function Header({role, logout, checkUserRole}) {
       </Button>
       {" | "}
       <Button>
+        <NavLink to="/registration" activeStyle={activeStyle}>
+          Registration
+        </NavLink>
+      </Button>
+      {" | "}
+      <Button>
         <NavLink to="/login" activeStyle={activeStyle}>
           Log In
         </NavLink>
