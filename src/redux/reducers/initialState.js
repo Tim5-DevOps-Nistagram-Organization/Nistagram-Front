@@ -1,7 +1,7 @@
 import * as Role from "../../model/Role";
 
-const init = {
+const initialState = {
   userRole: Role.UNLOGGED
 };
 
-export default init;
+export default initialState;
