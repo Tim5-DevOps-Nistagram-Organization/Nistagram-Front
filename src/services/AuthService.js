@@ -24,4 +24,3 @@ export function registration(data) {
     .then(handleResponseText)
     .catch(handleError);
 }
-
