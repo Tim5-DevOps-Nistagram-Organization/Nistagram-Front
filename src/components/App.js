@@ -2,13 +2,14 @@ import "./App.css";
 import {Switch} from "react-router-dom";
 import Header from "./common/Header";
 import GuardedRoute from "./GuardedRoute";
-import Login from "./login/Login";
-import PageNotFound from "./PageNotFound";
 import React from "react";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Search from "./search/Search";
 import * as Role from "../model/Role";
+import PageNotFound from "./PageNotFound";
+import Registration from "./registration/Registration";
+import Login from "./login/Login";
+import Search from "./search/Search";
 
 function App() {
   return (
@@ -26,6 +27,15 @@ function App() {
             Role.ROLE_ADMIN
           ]}
           redirect="/login"
+        />
+        <GuardedRoute
+          exact
+          path="/registration"
+          roles={[
+            Role.UNLOGGED
+          ]}
+          component={Registration}
+          redirect="/"
         />
         <GuardedRoute
           exact
