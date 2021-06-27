@@ -10,6 +10,7 @@ import PageNotFound from "./PageNotFound";
 import Registration from "./registration/Registration";
 import Login from "./login/Login";
 import Search from "./search/Search";
+import EditProfile from "./profile/edit/EditProfile";
 
 function App() {
   return (
@@ -25,6 +26,15 @@ function App() {
             Role.ROLE_REGULAR,
             Role.ROLE_AGENT,
             Role.ROLE_ADMIN
+          ]}
+          redirect="/login"
+        />
+        <GuardedRoute
+          path="/profile/edit"
+          component={EditProfile}
+          roles={[
+            Role.ROLE_REGULAR,
+            Role.ROLE_AGENT,
           ]}
           redirect="/login"
         />

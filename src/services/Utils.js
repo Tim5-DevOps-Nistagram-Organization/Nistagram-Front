@@ -4,6 +4,10 @@ export function createHeaders() {
   headers.append("Content-Type", "application/json");
   headers.append("Accept", "application/json");
 
+  const token = localStorage.getItem("token");
+  if (token) {
+    headers.append("Authorization", `Bearer ${token}`);
+  }
   return headers;
 }
 
@@ -35,3 +39,5 @@ export function handleError(error) {
   console.error("API call failed. " + error);
   throw error;
 }
+
+export const base = process.env.REACT_APP_API_GATEWAY_URL;

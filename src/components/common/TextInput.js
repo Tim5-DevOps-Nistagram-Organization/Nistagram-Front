@@ -10,6 +10,7 @@ const TextInput = ({
   placeholder,
   value,
   error,
+  disabled = false
 }) => {
   return !error ? (
     <TextField
@@ -20,6 +21,7 @@ const TextInput = ({
       onChange={onChange}
       label={label}
       className="field"
+      disabled={disabled}
     />
   ) : (
     <TextField
@@ -32,6 +34,7 @@ const TextInput = ({
       label={label}
       helperText={error}
       className="field"
+      disabled={disabled}
     />
   );
 };
@@ -44,6 +47,7 @@ TextInput.propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.oneOfType([string, number]),
   error: PropTypes.string,
+  disabled: PropTypes.bool
 };
 
 export default TextInput;
