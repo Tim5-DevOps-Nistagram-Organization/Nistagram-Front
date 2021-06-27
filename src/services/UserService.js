@@ -1,22 +1,21 @@
 import {base, createHeaders, handleError, handleResponse, handleResponseText} from "./Utils";
 
-const baseUrl = base + "auth/user/";
+const baseUrl = base + "user/user/";
 
-export function login(data) {
+export function me() {
   const headers = createHeaders();
-  return fetch(baseUrl + "login", {
-    method: "POST",
+  return fetch(baseUrl, {
+    method: "GET",
     headers,
-    body: JSON.stringify(data),
   })
     .then(handleResponse)
     .catch(handleError);
 }
 
-export function registration(data) {
+export function update(data) {
   const headers = createHeaders();
-  return fetch(baseUrl + "registration", {
-    method: "POST",
+  return fetch(baseUrl, {
+    method: "PUT",
     headers,
     body: JSON.stringify(data),
   })

@@ -42,16 +42,52 @@ function Header({role, logout, checkUserRole}) {
           Log In
         </NavLink>
       </Button>
-    </nav>) : (
-    <nav>
-      <Button>
-        <NavLink to="/" activeStyle={activeStyle} exact>
-          Home
-        </NavLink>
-      </Button>
-      {" | "}
-      <Button onClick={handleLogOut}>Log out</Button>
     </nav>
+  ) : (
+    role === Role.ROLE_REGULAR ? (
+      <nav>
+        <Button>
+          <NavLink to="/" activeStyle={activeStyle} exact>
+            Home
+          </NavLink>
+        </Button>
+        {" | "}
+        <Button>
+          <NavLink to="/profile/edit" activeStyle={activeStyle}>
+            Edit profile
+          </NavLink>
+        </Button>
+        {" | "}
+        <Button onClick={handleLogOut}>Log out</Button>
+      </nav>
+    ) : (
+      role === Role.ROLE_AGENT ? (
+        <nav>
+          <Button>
+            <NavLink to="/" activeStyle={activeStyle} exact>
+              Home
+            </NavLink>
+          </Button>
+          {" | "}
+          <Button>
+            <NavLink to="/profile/edit" activeStyle={activeStyle}>
+              Edit profile
+            </NavLink>
+          </Button>
+          {" | "}
+          <Button onClick={handleLogOut}>Log out</Button>
+        </nav>
+      ) : (
+        <nav>
+          <Button>
+            <NavLink to="/" activeStyle={activeStyle} exact>
+              Home
+            </NavLink>
+          </Button>
+          {" | "}
+          <Button onClick={handleLogOut}>Log out</Button>
+        </nav>)
+    )
   )
 }
 
