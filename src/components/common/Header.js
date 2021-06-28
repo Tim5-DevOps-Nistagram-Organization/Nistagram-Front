@@ -1,14 +1,14 @@
-import React, {useEffect} from "react";
-import {NavLink, useHistory} from "react-router-dom";
-import {Button} from "@material-ui/core";
+import React, { useEffect } from "react";
+import { NavLink, useHistory } from "react-router-dom";
+import { Button } from "@material-ui/core";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {toast} from "react-toastify";
-import {logout, checkUserRole} from "../../redux/actions/userActions";
-import * as Role from "../../model/Role"
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
+import { logout, checkUserRole } from "../../redux/actions/userActions";
+import * as Role from "../../model/Role";
 
-function Header({role, logout, checkUserRole}) {
-  const activeStyle = {color: "#fc9d7f"};
+function Header({ role, logout, checkUserRole }) {
+  const activeStyle = { color: "#fc9d7f" };
 
   const history = useHistory();
 
@@ -43,52 +43,49 @@ function Header({role, logout, checkUserRole}) {
         </NavLink>
       </Button>
     </nav>
+  ) : role === Role.ROLE_REGULAR ? (
+    <nav>
+      <Button>
+        <NavLink to="/" activeStyle={activeStyle} exact>
+          Home
+        </NavLink>
+      </Button>
+      {" | "}
+      <Button>
+        <NavLink to="/profile/edit" activeStyle={activeStyle}>
+          Edit profile
+        </NavLink>
+      </Button>
+      {" | "}
+      <Button onClick={handleLogOut}>Log out</Button>
+    </nav>
+  ) : role === Role.ROLE_AGENT ? (
+    <nav>
+      <Button>
+        <NavLink to="/" activeStyle={activeStyle} exact>
+          Home
+        </NavLink>
+      </Button>
+      {" | "}
+      <Button>
+        <NavLink to="/profile/edit" activeStyle={activeStyle}>
+          Edit profile
+        </NavLink>
+      </Button>
+      {" | "}
+      <Button onClick={handleLogOut}>Log out</Button>
+    </nav>
   ) : (
-    role === Role.ROLE_REGULAR ? (
-      <nav>
-        <Button>
-          <NavLink to="/" activeStyle={activeStyle} exact>
-            Home
-          </NavLink>
-        </Button>
-        {" | "}
-        <Button>
-          <NavLink to="/profile/edit" activeStyle={activeStyle}>
-            Edit profile
-          </NavLink>
-        </Button>
-        {" | "}
-        <Button onClick={handleLogOut}>Log out</Button>
-      </nav>
-    ) : (
-      role === Role.ROLE_AGENT ? (
-        <nav>
-          <Button>
-            <NavLink to="/" activeStyle={activeStyle} exact>
-              Home
-            </NavLink>
-          </Button>
-          {" | "}
-          <Button>
-            <NavLink to="/profile/edit" activeStyle={activeStyle}>
-              Edit profile
-            </NavLink>
-          </Button>
-          {" | "}
-          <Button onClick={handleLogOut}>Log out</Button>
-        </nav>
-      ) : (
-        <nav>
-          <Button>
-            <NavLink to="/" activeStyle={activeStyle} exact>
-              Home
-            </NavLink>
-          </Button>
-          {" | "}
-          <Button onClick={handleLogOut}>Log out</Button>
-        </nav>)
-    )
-  )
+    <nav>
+      <Button>
+        <NavLink to="/" activeStyle={activeStyle} exact>
+          Home
+        </NavLink>
+      </Button>
+      {" | "}
+      <Button onClick={handleLogOut}>Log out</Button>
+    </nav>
+  );
 }
 
 Header.propTypes = {

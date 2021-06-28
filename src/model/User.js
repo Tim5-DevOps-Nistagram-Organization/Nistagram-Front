@@ -7,8 +7,19 @@ export class User {
   dateOfBirth;
   webSite;
   biography;
+  profileIsPrivate;
 
-  constructor(username, email, name, phone, gender, dateOfBirth, webSite, biography) {
+  constructor(
+    username,
+    email,
+    name,
+    phone,
+    gender,
+    dateOfBirth,
+    webSite,
+    biography,
+    profileIsPrivate
+  ) {
     this.username = username;
     this.email = email;
     this.name = name;
@@ -17,6 +28,7 @@ export class User {
     this.dateOfBirth = dateOfBirth;
     this.webSite = webSite;
     this.biography = biography;
+    this.profileIsPrivate = profileIsPrivate;
   }
 }
 
@@ -38,8 +50,13 @@ export class UserRequest {
   }
 }
 
-export const newUser = () => new User("", "", "", "", "", "", "");
-export const newUserRequest = (user) => new UserRequest(user.name, user.phone, user.gender, user.dateOfBirth,
-  user.webSite, user.biography);
-
-
+export const newUser = () => new User("", "", "", "", "", "", "", "", false);
+export const newUserRequest = (user) =>
+  new UserRequest(
+    user.name,
+    user.phone,
+    user.gender,
+    user.dateOfBirth,
+    user.webSite,
+    user.biography
+  );

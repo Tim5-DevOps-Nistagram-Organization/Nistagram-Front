@@ -1,4 +1,10 @@
-import {base, createHeaders, handleError, handleResponse, handleResponseText} from "./Utils";
+import {
+  base,
+  createHeaders,
+  handleError,
+  handleResponse,
+  handleResponseText,
+} from "./Utils";
 
 const baseUrl = base + "auth/user/";
 

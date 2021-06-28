@@ -1,9 +1,9 @@
 import "./App.css";
-import {Switch} from "react-router-dom";
+import { Switch } from "react-router-dom";
 import Header from "./common/Header";
 import GuardedRoute from "./GuardedRoute";
 import React from "react";
-import {ToastContainer} from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Role from "../model/Role";
 import PageNotFound from "./PageNotFound";
@@ -15,7 +15,7 @@ import EditProfile from "./profile/edit/EditProfile";
 function App() {
   return (
     <div className="App">
-      <Header/>
+      <Header />
       <Switch>
         <GuardedRoute
           exact
@@ -25,40 +25,33 @@ function App() {
             Role.UNLOGGED,
             Role.ROLE_REGULAR,
             Role.ROLE_AGENT,
-            Role.ROLE_ADMIN
+            Role.ROLE_ADMIN,
           ]}
           redirect="/login"
         />
         <GuardedRoute
           path="/profile/edit"
           component={EditProfile}
-          roles={[
-            Role.ROLE_REGULAR,
-            Role.ROLE_AGENT,
-          ]}
+          roles={[Role.ROLE_REGULAR, Role.ROLE_AGENT]}
           redirect="/login"
         />
         <GuardedRoute
           exact
           path="/registration"
-          roles={[
-            Role.UNLOGGED
-          ]}
+          roles={[Role.UNLOGGED]}
           component={Registration}
           redirect="/"
         />
         <GuardedRoute
           exact
           path="/login"
-          roles={[
-            Role.UNLOGGED
-          ]}
+          roles={[Role.UNLOGGED]}
           component={Login}
           redirect="/"
         />
-        <GuardedRoute component={PageNotFound} redirect="/"/>
+        <GuardedRoute component={PageNotFound} redirect="/" />
       </Switch>
-      <ToastContainer autoClose={3000} hideProgressBar/>
+      <ToastContainer autoClose={3000} hideProgressBar />
     </div>
   );
 }

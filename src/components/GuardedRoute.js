@@ -1,15 +1,15 @@
 import React from "react";
-import {Route, Redirect} from "react-router-dom";
-import {connect} from "react-redux";
+import { Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 const GuardedRoute = ({
-                        component: Component,
-                        userRole,
-                        roles,
-                        redirect,
-                        ...rest
-                      }) => {
+  component: Component,
+  userRole,
+  roles,
+  redirect,
+  ...rest
+}) => {
   return (
     userRole !== "INIT" && (
       <Route
@@ -18,7 +18,7 @@ const GuardedRoute = ({
           roles.includes(userRole) ? (
             <Component {...props} />
           ) : (
-            <Redirect to={redirect}/>
+            <Redirect to={redirect} />
           )
         }
       />
