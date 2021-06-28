@@ -23,67 +23,49 @@ function Header({ role, logout, checkUserRole }) {
     history.push("/login");
   }
 
-  return role === Role.UNLOGGED ? (
+  return (
     <nav>
       <Button>
         <NavLink to="/" activeStyle={activeStyle} exact>
           Home
         </NavLink>
       </Button>
-      {" | "}
-      <Button>
-        <NavLink to="/registration" activeStyle={activeStyle}>
-          Registration
-        </NavLink>
-      </Button>
-      {" | "}
-      <Button>
-        <NavLink to="/login" activeStyle={activeStyle}>
-          Log In
-        </NavLink>
-      </Button>
-    </nav>
-  ) : role === Role.ROLE_REGULAR ? (
-    <nav>
-      <Button>
-        <NavLink to="/" activeStyle={activeStyle} exact>
-          Home
-        </NavLink>
-      </Button>
-      {" | "}
-      <Button>
-        <NavLink to="/profile/edit" activeStyle={activeStyle}>
-          Edit profile
-        </NavLink>
-      </Button>
-      {" | "}
-      <Button onClick={handleLogOut}>Log out</Button>
-    </nav>
-  ) : role === Role.ROLE_AGENT ? (
-    <nav>
-      <Button>
-        <NavLink to="/" activeStyle={activeStyle} exact>
-          Home
-        </NavLink>
-      </Button>
-      {" | "}
-      <Button>
-        <NavLink to="/profile/edit" activeStyle={activeStyle}>
-          Edit profile
-        </NavLink>
-      </Button>
-      {" | "}
-      <Button onClick={handleLogOut}>Log out</Button>
-    </nav>
-  ) : (
-    <nav>
-      <Button>
-        <NavLink to="/" activeStyle={activeStyle} exact>
-          Home
-        </NavLink>
-      </Button>
-      {" | "}
-      <Button onClick={handleLogOut}>Log out</Button>
+      {role === Role.UNLOGGED && (
+        <>
+          {" | "}
+          <Button>
+            <NavLink to="/registration" activeStyle={activeStyle}>
+              Registration
+            </NavLink>
+          </Button>
+        </>
+      )}
+      {role === Role.UNLOGGED && (
+        <>
+          {" | "}
+          <Button>
+            <NavLink to="/login" activeStyle={activeStyle}>
+              Log In
+            </NavLink>
+          </Button>
+        </>
+      )}
+      {(role === Role.ROLE_REGULAR || role === Role.ROLE_AGENT) && (
+        <>
+          {" | "}
+          <Button>
+            <NavLink to="/profile/edit" activeStyle={activeStyle}>
+              Edit profile
+            </NavLink>
+          </Button>
+        </>
+      )}
+      {(role === Role.ROLE_REGULAR || role === Role.ROLE_AGENT) && (
+        <>
+          {" | "}
+          <Button onClick={handleLogOut}>Log out</Button>
+        </>
+      )}
     </nav>
   );
 }
@@ -104,5 +86,4 @@ const mapDispatchToProps = {
   logout,
   checkUserRole,
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
