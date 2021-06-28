@@ -1,11 +1,11 @@
 import React from "react";
-import {Button} from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import TextInput from "../../common/TextInput";
 import "../../common/Form.css";
 import PropTypes from "prop-types";
 
-function EditProfileForm({form, errors, saving, onSubmit, onChange}) {
+function EditProfileForm({ form, errors, saving, onSubmit, onChange }) {
   return (
     <form onSubmit={onSubmit}>
       <h2>Edit profile</h2>
@@ -70,8 +70,8 @@ function EditProfileForm({form, errors, saving, onSubmit, onChange}) {
         onChange={onChange}
       />
 
-      <br/>
-      <br/>
+      <br />
+      <br />
       <Button
         type="submit"
         disabled={saving}

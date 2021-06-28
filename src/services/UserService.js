@@ -1,4 +1,10 @@
-import {base, createHeaders, handleError, handleResponse, handleResponseText} from "./Utils";
+import {
+  base,
+  createHeaders,
+  handleError,
+  handleResponse,
+  handleResponseText,
+} from "./Utils";
 
 const baseUrl = base + "user/user/";
 
@@ -18,6 +24,16 @@ export function update(data) {
     method: "PUT",
     headers,
     body: JSON.stringify(data),
+  })
+    .then(handleResponseText)
+    .catch(handleError);
+}
+
+export function updateSettings(data) {
+  const headers = createHeaders();
+  return fetch(baseUrl + "settings/" + data, {
+    method: "PUT",
+    headers,
   })
     .then(handleResponseText)
     .catch(handleError);

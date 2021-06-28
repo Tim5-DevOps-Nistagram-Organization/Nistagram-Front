@@ -5,7 +5,13 @@ import TextInput from "../common/TextInput";
 import "../common/Form.css";
 import PropTypes from "prop-types";
 
-function RegistrationForm({ registrationForm, errors, saving, onSubmit, onChange }) {
+function RegistrationForm({
+  registrationForm,
+  errors,
+  saving,
+  onSubmit,
+  onChange,
+}) {
   return (
     <form onSubmit={onSubmit}>
       <h2>Registration</h2>

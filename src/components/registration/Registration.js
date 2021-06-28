@@ -1,12 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import * as AuthService from "../../services/AuthService";
-import {useHistory} from "react-router-dom";
-import {toast} from "react-toastify";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import RegistrationForm from "./RegistrationForm";
 
-function Registration({registration, ...props}) {
+function Registration({ registration, ...props }) {
   const [registrationForm, setRegistrationForm] = useState({
     ...props.registrationForm,
   });
@@ -15,7 +15,7 @@ function Registration({registration, ...props}) {
   const history = useHistory();
 
   function handleChange(event) {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     setRegistrationForm((prevForm) => ({
       ...prevForm,
       [name]: value,
@@ -23,7 +23,7 @@ function Registration({registration, ...props}) {
   }
 
   function formIsValid() {
-    const {username, password, email} = registrationForm;
+    const { username, password, email } = registrationForm;
     const errors = {};
 
     if (!username) errors.username = "Username is required.";
@@ -46,7 +46,7 @@ function Registration({registration, ...props}) {
       })
       .catch((error) => {
         setSaving(false);
-        setErrors({onSubmit: error.message});
+        setErrors({ onSubmit: error.message });
       });
   }
 
@@ -72,11 +72,10 @@ function mapStateToProps(state) {
     email: "",
   };
   return {
-    registrationForm
+    registrationForm,
   };
 }
 
-const mapDispatchToProps = {
-};
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Registration);

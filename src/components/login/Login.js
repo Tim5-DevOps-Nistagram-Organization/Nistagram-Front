@@ -1,12 +1,12 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {login} from "../../redux/actions/userActions";
-import {useHistory} from "react-router-dom";
-import {toast} from "react-toastify";
+import { connect } from "react-redux";
+import { login } from "../../redux/actions/userActions";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import LoginForm from "./LoginForm";
 
-function Login({login, role, ...props}) {
+function Login({ login, role, ...props }) {
   const [loginForm, setLoginForm] = useState({
     ...props.loginForm,
   });
@@ -15,7 +15,7 @@ function Login({login, role, ...props}) {
   const history = useHistory();
 
   function handleChange(event) {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     setLoginForm((prevForm) => ({
       ...prevForm,
       [name]: value,
@@ -23,7 +23,7 @@ function Login({login, role, ...props}) {
   }
 
   function formIsValid() {
-    const {username, password} = loginForm;
+    const { username, password } = loginForm;
     const errors = {};
 
     if (!username) errors.username = "Username is required.";
@@ -45,7 +45,7 @@ function Login({login, role, ...props}) {
       })
       .catch((error) => {
         setSaving(false);
-        setErrors({onSubmit: error.message});
+        setErrors({ onSubmit: error.message });
       });
   }
 
@@ -73,7 +73,7 @@ function mapStateToProps(state) {
   };
   return {
     loginForm,
-    role: state.userRole
+    role: state.userRole,
   };
 }
 

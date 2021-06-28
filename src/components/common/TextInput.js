@@ -10,14 +10,14 @@ const TextInput = ({
   placeholder,
   value,
   error,
-  disabled = false
+  disabled = false,
 }) => {
   return !error ? (
     <TextField
       type={type}
       name={name}
       placeholder={placeholder}
-      value={value}
+      value={value === null ? "" : value}
       onChange={onChange}
       label={label}
       className="field"
@@ -29,7 +29,7 @@ const TextInput = ({
       type={type}
       name={name}
       placeholder={placeholder}
-      value={value}
+      value={value === null ? "" : value}
       onChange={onChange}
       label={label}
       helperText={error}
@@ -47,7 +47,7 @@ TextInput.propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.oneOfType([string, number]),
   error: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 export default TextInput;
