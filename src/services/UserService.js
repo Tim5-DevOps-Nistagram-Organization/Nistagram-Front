@@ -38,3 +38,23 @@ export function updateSettings(data) {
     .then(handleResponseText)
     .catch(handleError);
 }
+
+export function meDetails() {
+  const headers = createHeaders();
+  return fetch(baseUrl + "details", {
+    method: "GET",
+    headers,
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+export function getByUsername(username) {
+  const headers = createHeaders();
+  return fetch(baseUrl + "view/" + username, {
+    method: "GET",
+    headers,
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}

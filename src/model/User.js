@@ -50,6 +50,43 @@ export class UserRequest {
   }
 }
 
+export class UserDetails {
+  username;
+  name;
+  phone;
+  gender;
+  dateOfBirth;
+  webSite;
+  biography;
+  following;
+  followers;
+  canAccess;
+
+  constructor(
+    username,
+    name,
+    phone,
+    gender,
+    dateOfBirth,
+    webSite,
+    biography,
+    following,
+    followers,
+    canAccess
+  ) {
+    this.username = username;
+    this.name = name;
+    this.phone = phone;
+    this.gender = gender;
+    this.dateOfBirth = dateOfBirth;
+    this.webSite = webSite;
+    this.biography = biography;
+    this.following = following;
+    this.followers = followers;
+    this.canAccess = canAccess;
+  }
+}
+
 export const newUser = () => new User("", "", "", "", "", "", "", "", false);
 export const newUserRequest = (user) =>
   new UserRequest(
@@ -60,3 +97,5 @@ export const newUserRequest = (user) =>
     user.webSite,
     user.biography
   );
+export const newUserDetails = () =>
+  new UserDetails("", "", "", "", "", "", "", 0, 0, false);

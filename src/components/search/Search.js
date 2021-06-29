@@ -4,6 +4,7 @@ import SearchUsers from "./SearchUsers";
 import * as SearchService from "../../services/SearchService";
 import { Pagination } from "@material-ui/lab";
 import SearchForm from "./SearchForm";
+import { useHistory } from "react-router-dom";
 
 function Search() {
   const [tab, setTab] = useState(0);
@@ -12,6 +13,7 @@ function Search() {
   const [totalPages, setTotalPages] = useState(0);
   const [users, setUsers] = useState([]);
   const sizeOfPage = 1;
+  const history = useHistory();
 
   useEffect(() => {
     if (tab === 0) {
@@ -41,12 +43,16 @@ function Search() {
     setNumOfPage(value);
   };
 
+  function handleView(username) {
+    history.push("/profile/view/" + username);
+  }
+
   return (
     <>
       <h2>Search</h2>
       <SearchTabs onChange={handleChangeTab} value={tab} />
       <SearchForm onChange={handleChangeText} text={text} />
-      {tab === 0 && <SearchUsers users={users} />}
+      {tab === 0 && <SearchUsers users={users} onView={handleView} />}
       {totalPages > 0 && (
         <div style={{ justifyContent: "center", display: "flex" }}>
           <Pagination

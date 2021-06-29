@@ -11,6 +11,7 @@ import Registration from "./registration/Registration";
 import Login from "./login/Login";
 import Search from "./search/Search";
 import EditProfile from "./profile/edit/EditProfile";
+import ViewProfile from "./profile/view/ViewProfile";
 
 function App() {
   return (
@@ -32,6 +33,23 @@ function App() {
         <GuardedRoute
           path="/profile/edit"
           component={EditProfile}
+          roles={[Role.ROLE_REGULAR, Role.ROLE_AGENT]}
+          redirect="/login"
+        />
+        <GuardedRoute
+          path="/profile/view/:username"
+          component={ViewProfile}
+          roles={[
+            Role.UNLOGGED,
+            Role.ROLE_REGULAR,
+            Role.ROLE_AGENT,
+            Role.ROLE_ADMIN,
+          ]}
+          redirect="/"
+        />
+        <GuardedRoute
+          path="/profile/view"
+          component={ViewProfile}
           roles={[Role.ROLE_REGULAR, Role.ROLE_AGENT]}
           redirect="/login"
         />

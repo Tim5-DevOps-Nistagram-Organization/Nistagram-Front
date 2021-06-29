@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import TextInput from "../common/TextInput";
 import {
   Button,
   Paper,
@@ -10,7 +9,7 @@ import {
   TableRow,
 } from "@material-ui/core";
 
-function SearchUsers({ users }) {
+function SearchUsers({ users, onView }) {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -20,7 +19,12 @@ function SearchUsers({ users }) {
               <TableRow key={index}>
                 <TableCell style={{ width: "70%" }}>{user.username}</TableCell>
                 <TableCell style={{ width: "22%" }}>
-                  <Button variant="outlined" color="primary" className="field">
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    className="field"
+                    onClick={() => onView(user.username)}
+                  >
                     View
                   </Button>
                 </TableCell>

@@ -54,6 +54,16 @@ function Header({ role, logout, checkUserRole }) {
         <>
           {" | "}
           <Button>
+            <NavLink to="/profile/view" activeStyle={activeStyle}>
+              My profile
+            </NavLink>
+          </Button>
+        </>
+      )}
+      {(role === Role.ROLE_REGULAR || role === Role.ROLE_AGENT) && (
+        <>
+          {" | "}
+          <Button>
             <NavLink to="/profile/edit" activeStyle={activeStyle}>
               Edit profile
             </NavLink>
