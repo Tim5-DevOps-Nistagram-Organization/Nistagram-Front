@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import {
+  Button,
   Paper,
   Table,
   TableBody,
@@ -8,15 +9,33 @@ import {
   TableRow,
 } from "@material-ui/core";
 
-function ProfileViewFromat({ user }) {
+function ProfileViewFromat({ user, myProfile, onAddPost }) {
+  const numSpan = myProfile ? 4 : 3;
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
         <TableBody>
           <TableRow>
-            <TableCell style={{ width: "60%" }}>
-              <h3>{user.username}</h3>
-            </TableCell>
+            {myProfile ? (
+              <>
+                <TableCell style={{ width: "40%" }}>
+                  <h3>{user.username}</h3>
+                </TableCell>
+                <TableCell style={{ width: "20%" }}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={onAddPost}
+                  >
+                    Add post
+                  </Button>
+                </TableCell>
+              </>
+            ) : (
+              <TableCell style={{ width: "60%" }}>
+                <h3>{user.username}</h3>
+              </TableCell>
+            )}
             <TableCell style={{ width: "20%" }}>
               <h4>Following {user.following}</h4>
             </TableCell>
@@ -26,34 +45,34 @@ function ProfileViewFromat({ user }) {
           </TableRow>
           {user.name ? (
             <TableRow>
-              <TableCell colSpan={3}>{user.name}</TableCell>
+              <TableCell colSpan={numSpan}>{user.name}</TableCell>
             </TableRow>
           ) : null}
           {user.phone ? (
             <TableRow>
-              <TableCell colSpan={3}>{user.phone}</TableCell>
+              <TableCell colSpan={numSpan}>{user.phone}</TableCell>
             </TableRow>
           ) : null}
           {user.gender ? (
             <TableRow>
-              <TableCell colSpan={3}>{user.gender}</TableCell>
+              <TableCell colSpan={numSpan}>{user.gender}</TableCell>
             </TableRow>
           ) : null}
           {user.dateOfBirth ? (
             <TableRow>
-              <TableCell colSpan={3}>
+              <TableCell colSpan={numSpan}>
                 {user.dateOfBirth.substring(0, 10)}
               </TableCell>
             </TableRow>
           ) : null}
           {user.webSite ? (
             <TableRow>
-              <TableCell colSpan={3}>{user.webSite}</TableCell>
+              <TableCell colSpan={numSpan}>{user.webSite}</TableCell>
             </TableRow>
           ) : null}
           {user.biography ? (
             <TableRow>
-              <TableCell colSpan={3}>{user.biography}</TableCell>
+              <TableCell colSpan={numSpan}>{user.biography}</TableCell>
             </TableRow>
           ) : null}
         </TableBody>
@@ -64,6 +83,8 @@ function ProfileViewFromat({ user }) {
 
 ProfileViewFromat.propTypes = {
   user: PropTypes.object.isRequired,
+  myProfile: PropTypes.bool.isRequired,
+  onAddPost: PropTypes.func.isRequired,
 };
 
 export default ProfileViewFromat;

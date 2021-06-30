@@ -34,6 +34,7 @@ GuardedRoute.propTypes = {
 };
 
 function mapStateToProps(state) {
+  console.log(state.userRole);
   return {
     userRole: state.userRole,
   };

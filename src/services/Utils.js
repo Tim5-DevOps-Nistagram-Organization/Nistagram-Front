@@ -11,6 +11,16 @@ export function createHeaders() {
   return headers;
 }
 
+export function createHeadersToken() {
+  const headers = new Headers();
+
+  const token = localStorage.getItem("token");
+  if (token) {
+    headers.append("Authorization", `Bearer ${token}`);
+  }
+  return headers;
+}
+
 export async function handleResponse(response) {
   if (response.ok) return response.json();
   if (response.status === 400 || response.status === 404) {

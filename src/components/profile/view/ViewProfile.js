@@ -4,9 +4,11 @@ import { toast } from "react-toastify";
 import { newUserDetails } from "../../../model/User";
 import ProfileViewFromat from "./ViewProfileFormat";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 function ViewProfile({ username }) {
   const [user, setUser] = useState(newUserDetails);
+  const history = useHistory();
 
   useEffect(() => {
     if (username) {
@@ -26,9 +28,20 @@ function ViewProfile({ username }) {
           toast.error(error.message);
         });
     }
-  }, []);
+  });
 
-  return <ProfileViewFromat user={user} />;
+  function handleOnAddPost(event) {
+    event.preventDefault();
+    history.push("/post/add");
+  }
+
+  return (
+    <ProfileViewFromat
+      user={user}
+      myProfile={username === undefined}
+      onAddPost={handleOnAddPost}
+    />
+  );
 }
 
 function mapStateToProps(state, ownProps) {
