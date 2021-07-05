@@ -1,12 +1,13 @@
 import * as types from "../actions/actionTypes";
 import initialState from "./initialState";
-import {getRole} from "../utils";
+import { getRole } from "../utils";
 import * as Role from "../../model/Role";
 
 export default function roleReducer(state = initialState.userRole, action) {
   switch (action.type) {
     case types.LOGIN_SUCCESS:
-      return action.role;
+      localStorage.setItem("token", action.token);
+      return getRole(action.token);
     case types.LOGOUT_SUCCESS:
       localStorage.setItem("token", null);
       localStorage.clear();
