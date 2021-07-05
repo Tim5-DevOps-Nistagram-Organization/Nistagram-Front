@@ -1,8 +1,10 @@
-import {combineReducers} from "redux";
+import { combineReducers } from "redux";
 import userRole from "./roleReducer";
+import username from "./usernameReducer";
 
 const rootReducer = combineReducers({
-  userRole
+  userRole,
+  username,
 });
 
 export default rootReducer;

@@ -8,8 +8,19 @@ import {
   TableContainer,
   TableRow,
 } from "@material-ui/core";
+import { ROLE_REGULAR, ROLE_AGENT } from "../../../model/Role";
 
-function ProfileViewFromat({ user, myProfile, onAddPost }) {
+function ProfileViewFromat({
+  user,
+  myProfile,
+  role,
+  onAddPost,
+  onFollowRequests,
+  onFollow,
+  onUnfollow,
+  onMute,
+  onUnmute,
+}) {
   const numSpan = myProfile ? 4 : 3;
   return (
     <TableContainer component={Paper}>
@@ -18,10 +29,10 @@ function ProfileViewFromat({ user, myProfile, onAddPost }) {
           <TableRow>
             {myProfile ? (
               <>
-                <TableCell style={{ width: "40%" }}>
+                <TableCell style={{ width: "25%" }}>
                   <h3>{user.username}</h3>
                 </TableCell>
-                <TableCell style={{ width: "20%" }}>
+                <TableCell style={{ width: "35%" }}>
                   <Button
                     variant="outlined"
                     color="primary"
@@ -29,6 +40,18 @@ function ProfileViewFromat({ user, myProfile, onAddPost }) {
                   >
                     Add post
                   </Button>
+                  {user.followRequests > 0 ? (
+                    <>
+                      {" "}
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={onFollowRequests}
+                      >
+                        Follow requests
+                      </Button>
+                    </>
+                  ) : null}
                 </TableCell>
               </>
             ) : (
@@ -43,6 +66,46 @@ function ProfileViewFromat({ user, myProfile, onAddPost }) {
               <h4>Followers {user.followers}</h4>
             </TableCell>
           </TableRow>
+          {!myProfile && (role === ROLE_REGULAR || role === ROLE_AGENT) ? (
+            user.friend ? (
+              <TableRow>
+                <TableCell style={{ width: "60%" }} />
+                <TableCell style={{ width: "20%" }}>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={onUnfollow}
+                  >
+                    Unfollow
+                  </Button>
+                </TableCell>
+                <TableCell style={{ width: "20%" }}>
+                  {user.muted ? (
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={onUnmute}
+                    >
+                      Unmute
+                    </Button>
+                  ) : (
+                    <Button variant="outlined" color="primary" onClick={onMute}>
+                      Mute
+                    </Button>
+                  )}
+                </TableCell>
+              </TableRow>
+            ) : (
+              <TableRow>
+                <TableCell colSpan={2} style={{ width: "80%" }} />
+                <TableCell style={{ width: "20%" }}>
+                  <Button variant="outlined" color="primary" onClick={onFollow}>
+                    Follow
+                  </Button>
+                </TableCell>
+              </TableRow>
+            )
+          ) : null}
           {user.name ? (
             <TableRow>
               <TableCell colSpan={numSpan}>{user.name}</TableCell>
@@ -84,7 +147,13 @@ function ProfileViewFromat({ user, myProfile, onAddPost }) {
 ProfileViewFromat.propTypes = {
   user: PropTypes.object.isRequired,
   myProfile: PropTypes.bool.isRequired,
+  role: PropTypes.string.isRequired,
   onAddPost: PropTypes.func.isRequired,
+  onFollowRequests: PropTypes.func.isRequired,
+  onFollow: PropTypes.func.isRequired,
+  onUnfollow: PropTypes.func.isRequired,
+  onMute: PropTypes.func.isRequired,
+  onUnmute: PropTypes.func.isRequired,
 };
 
 export default ProfileViewFromat;

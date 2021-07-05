@@ -5,8 +5,10 @@ import * as SearchService from "../../services/SearchService";
 import { Pagination } from "@material-ui/lab";
 import SearchForm from "./SearchForm";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-function Search() {
+function Search({ username }) {
   const [tab, setTab] = useState(0);
   const [text, setText] = useState("");
   const [numOfPage, setNumOfPage] = useState(1);
@@ -43,8 +45,9 @@ function Search() {
     setNumOfPage(value);
   };
 
-  function handleView(username) {
-    history.push("/profile/view/" + username);
+  function handleView(userUsername) {
+    if (userUsername === username) history.push("/profile/view");
+    else history.push("/profile/view/" + userUsername);
   }
 
   return (
@@ -66,4 +69,16 @@ function Search() {
   );
 }
 
-export default Search;
+Search.propTypes = {
+  username: PropTypes.string.isRequired,
+};
+
+function mapStateToProps(state) {
+  return {
+    username: state.username,
+  };
+}
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

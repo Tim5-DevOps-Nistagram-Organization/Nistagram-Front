@@ -39,7 +39,7 @@ function Login({ login, role, ...props }) {
     setSaving(true);
 
     login(loginForm)
-      .then((role) => {
+      .then(() => {
         toast.success("Successfully logged in.");
         history.push("/");
       })

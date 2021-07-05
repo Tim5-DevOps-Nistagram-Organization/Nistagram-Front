@@ -13,6 +13,7 @@ import Search from "./search/Search";
 import EditProfile from "./profile/edit/EditProfile";
 import ViewProfile from "./profile/view/ViewProfile";
 import PostAdd from "./post/add/PostAdd";
+import FollowRequests from "./profile/requests/FollowRequests";
 
 function App() {
   return (
@@ -57,6 +58,12 @@ function App() {
         <GuardedRoute
           path="/post/add"
           component={PostAdd}
+          roles={[Role.ROLE_REGULAR, Role.ROLE_AGENT]}
+          redirect="/login"
+        />
+        <GuardedRoute
+          path="/follow/requests"
+          component={FollowRequests}
           roles={[Role.ROLE_REGULAR, Role.ROLE_AGENT]}
           redirect="/login"
         />

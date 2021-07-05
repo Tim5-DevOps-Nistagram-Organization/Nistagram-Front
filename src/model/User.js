@@ -60,7 +60,10 @@ export class UserDetails {
   biography;
   following;
   followers;
-  canAccess;
+  followRequests;
+  private;
+  friend;
+  muted;
 
   constructor(
     username,
@@ -72,7 +75,10 @@ export class UserDetails {
     biography,
     following,
     followers,
-    canAccess
+    followRequests,
+    isPrivate,
+    friend,
+    muted
   ) {
     this.username = username;
     this.name = name;
@@ -83,7 +89,10 @@ export class UserDetails {
     this.biography = biography;
     this.following = following;
     this.followers = followers;
-    this.canAccess = canAccess;
+    this.followRequests = followRequests;
+    this.private = isPrivate;
+    this.friend = friend;
+    this.muted = muted;
   }
 }
 
@@ -98,4 +107,4 @@ export const newUserRequest = (user) =>
     user.biography
   );
 export const newUserDetails = () =>
-  new UserDetails("", "", "", "", "", "", "", 0, 0, false);
+  new UserDetails("", "", "", "", "", "", "", 0, 0, 0, false, false, false);
