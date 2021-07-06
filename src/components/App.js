@@ -15,6 +15,7 @@ import EditProfile from "./profile/edit/EditProfile";
 import ViewProfile from "./profile/view/ViewProfile";
 import PostAdd from "./post/add/PostAdd";
 import FollowRequests from "./profile/requests/FollowRequests";
+import RegistrationRequests from "./registration/requests/RegistrationRequests";
 
 function App() {
   return (
@@ -85,6 +86,12 @@ function App() {
           path="/follow/requests"
           component={FollowRequests}
           roles={[Role.ROLE_REGULAR, Role.ROLE_AGENT]}
+          redirect="/login"
+        />
+        <GuardedRoute
+          path="/registration/requests"
+          component={RegistrationRequests}
+          roles={[Role.ROLE_ADMIN]}
           redirect="/login"
         />
         <GuardedRoute

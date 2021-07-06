@@ -40,3 +40,33 @@ export function registrationAgetn(data) {
     .then(handleResponseText)
     .catch(handleError);
 }
+
+export function registrationRequests() {
+  const headers = createHeaders();
+  return fetch(baseUrl + "agent/requests", {
+    method: "GET",
+    headers,
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+export function registrationRequestsAccept(id) {
+  const headers = createHeaders();
+  return fetch(baseUrl + "agent/approve/" + id, {
+    method: "PUT",
+    headers,
+  })
+    .then(handleResponseText)
+    .catch(handleError);
+}
+
+export function registrationRequestsReject(id) {
+  const headers = createHeaders();
+  return fetch(baseUrl + "agent/reject/" + id, {
+    method: "PUT",
+    headers,
+  })
+    .then(handleResponseText)
+    .catch(handleError);
+}
