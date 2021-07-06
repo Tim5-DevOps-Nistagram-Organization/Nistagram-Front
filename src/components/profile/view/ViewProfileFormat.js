@@ -20,6 +20,7 @@ function ProfileViewFromat({
   onUnfollow,
   onMute,
   onUnmute,
+  onReaction,
 }) {
   const numSpan = myProfile ? 4 : 3;
   return (
@@ -29,16 +30,30 @@ function ProfileViewFromat({
           <TableRow>
             {myProfile ? (
               <>
-                <TableCell style={{ width: "25%" }}>
+                <TableCell style={{ width: "15%" }}>
                   <h3>{user.username}</h3>
                 </TableCell>
-                <TableCell style={{ width: "35%" }}>
+                <TableCell style={{ width: "45%" }}>
                   <Button
                     variant="outlined"
                     color="primary"
                     onClick={onAddPost}
                   >
                     Add post
+                  </Button>{" "}
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={() => onReaction(1)}
+                  >
+                    Liked
+                  </Button>{" "}
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={() => onReaction(2)}
+                  >
+                    Disliked
                   </Button>
                   {user.followRequests > 0 ? (
                     <>
@@ -154,6 +169,7 @@ ProfileViewFromat.propTypes = {
   onUnfollow: PropTypes.func.isRequired,
   onMute: PropTypes.func.isRequired,
   onUnmute: PropTypes.func.isRequired,
+  onReaction: PropTypes.func.isRequired,
 };
 
 export default ProfileViewFromat;
