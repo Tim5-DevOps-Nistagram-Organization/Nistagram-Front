@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 
 function RegistrationForm({
   registrationForm,
+  tab,
   errors,
   saving,
   onSubmit,
@@ -23,7 +24,6 @@ function RegistrationForm({
         onChange={onChange}
         error={errors.username}
       />
-
       <TextInput
         name="password"
         label="Password"
@@ -32,7 +32,6 @@ function RegistrationForm({
         error={errors.password}
         type="password"
       />
-
       <TextInput
         name="email"
         label="Email"
@@ -41,7 +40,15 @@ function RegistrationForm({
         error={errors.email}
         type="email"
       />
-
+      {tab === 1 && (
+        <TextInput
+          name="websiteUrl"
+          label="Web site"
+          value={registrationForm.websiteUrl}
+          onChange={onChange}
+          error={errors.websiteUrl}
+        />
+      )}
       <br />
       <br />
       <Button
@@ -59,6 +66,7 @@ function RegistrationForm({
 
 RegistrationForm.propTypes = {
   registrationForm: PropTypes.object.isRequired,
+  tab: PropTypes.number.isRequired,
   errors: PropTypes.object.isRequired,
   saving: PropTypes.bool.isRequired,
   onSubmit: PropTypes.func.isRequired,
