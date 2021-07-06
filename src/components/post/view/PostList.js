@@ -8,6 +8,8 @@ import { newPostDetails } from "../../../model/Post";
 import PostView from "./PostView";
 import * as PostService from "../../../services/PostService";
 import { toast } from "react-toastify";
+import { connect } from "react-redux";
+import { Reaction, ReactionCreate } from "../../../model/Reaction";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,17 +27,61 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function PostList({ posts }) {
+function PostList({ posts, role }) {
   const [post, setPost] = useState(newPostDetails);
   const [open, setOpen] = useState(false);
 
   function handleOnView(postId) {
+    loadPost(postId);
+  }
+
+  function loadPost(postId) {
     PostService.getById(postId)
       .then((data) => {
         setPost(data);
         setOpen(true);
       })
       .catch((error) => toast.error(error.message));
+  }
+
+  function createReaction(value) {
+    PostService.createReaction(new ReactionCreate(post.id, value))
+      .then(() => {
+        loadPost(post.id);
+      })
+      .catch((error) => toast.error(error.message));
+  }
+
+  function updateReaction(value) {
+    PostService.updateReaction(new Reaction(post.reaction.id, value))
+      .then(() => {
+        loadPost(post.id);
+      })
+      .catch((error) => toast.error(error.message));
+  }
+
+  function handleDeleteReaction() {
+    PostService.deleteReaction(post.reaction.id)
+      .then(() => {
+        loadPost(post.id);
+      })
+      .catch((error) => toast.error(error.message));
+  }
+
+  function handleLike() {
+    if (post.reaction === null) {
+      createReaction(1);
+    } else {
+      updateReaction(1);
+    }
+  }
+
+  function handleDislike() {
+    if (post.reaction === null) {
+      createReaction(2);
+    } else {
+      updateReaction(2);
+    }
   }
 
   const classes = useStyles();
@@ -58,6 +104,10 @@ function PostList({ posts }) {
         baseUrl={baseUrl}
         onClose={() => setOpen(false)}
         open={open}
+        role={role}
+        onLike={handleLike}
+        onDislike={handleDislike}
+        onDelete={handleDeleteReaction}
       />
     </div>
   );
@@ -65,6 +115,15 @@ function PostList({ posts }) {
 
 PostList.propTypes = {
   posts: PropTypes.arrayOf(object).isRequired,
+  role: PropTypes.string.isRequired,
 };
 
-export default PostList;
+function mapStateToProps(state) {
+  return {
+    role: state.userRole,
+  };
+}
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);
