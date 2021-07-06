@@ -60,3 +60,14 @@ export function deleteReaction(id) {
     .then(handleResponseText)
     .catch(handleError);
 }
+
+export function unappropriatedContent(data) {
+  const headers = createHeaders();
+  return fetch(baseUrl + "unappropriatedContent/", {
+    method: "POST",
+    headers,
+    body: JSON.stringify(data),
+  })
+    .then(handleResponseText)
+    .catch(handleError);
+}

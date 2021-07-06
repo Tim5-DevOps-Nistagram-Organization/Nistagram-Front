@@ -10,6 +10,7 @@ import * as PostService from "../../../services/PostService";
 import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { Reaction, ReactionCreate } from "../../../model/Reaction";
+import { UnappropriatedContent } from "../../../model/UnappropriatedContent";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
 function PostList({ posts, role }) {
   const [post, setPost] = useState(newPostDetails);
   const [open, setOpen] = useState(false);
+  const [show, setShow] = useState(false);
+  const [reason, setReason] = useState("");
+  const [errors, setErrors] = useState({});
 
   function handleOnView(postId) {
     loadPost(postId);
@@ -84,6 +88,37 @@ function PostList({ posts, role }) {
     }
   }
 
+  function handleChange(event) {
+    const { value } = event.target;
+    setReason(value);
+  }
+
+  function formIsValid() {
+    const errors = {};
+
+    if (!reason) errors.reason = "Reason is required.";
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  }
+
+  function handleReport(event) {
+    event.preventDefault();
+    if (!formIsValid()) return;
+
+    PostService.unappropriatedContent(
+      new UnappropriatedContent(post.id, reason)
+    )
+      .then((message) => {
+        toast.success(message);
+        setShow(false);
+        setReason("");
+      })
+      .catch((error) => {
+        setErrors({ onSubmit: error.message });
+      });
+  }
+
   const classes = useStyles();
   const baseUrl = base + "media/media/";
   return (
@@ -105,9 +140,15 @@ function PostList({ posts, role }) {
         onClose={() => setOpen(false)}
         open={open}
         role={role}
+        show={show}
+        reason={reason}
+        errors={errors}
         onLike={handleLike}
         onDislike={handleDislike}
         onDelete={handleDeleteReaction}
+        onOpenReport={() => setShow(true)}
+        onReport={handleReport}
+        onChange={handleChange}
       />
     </div>
   );
