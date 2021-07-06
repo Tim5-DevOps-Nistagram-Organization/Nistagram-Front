@@ -9,6 +9,7 @@ import * as Role from "../model/Role";
 import PageNotFound from "./PageNotFound";
 import Registration from "./registration/Registration";
 import Login from "./login/Login";
+import Home from "./home/Home";
 import Search from "./search/Search";
 import EditProfile from "./profile/edit/EditProfile";
 import ViewProfile from "./profile/view/ViewProfile";
@@ -23,6 +24,18 @@ function App() {
         <GuardedRoute
           exact
           path="/"
+          component={Home}
+          roles={[
+            Role.UNLOGGED,
+            Role.ROLE_REGULAR,
+            Role.ROLE_AGENT,
+            Role.ROLE_ADMIN,
+          ]}
+          redirect="/login"
+        />
+        <GuardedRoute
+          exact
+          path="/search"
           component={Search}
           roles={[
             Role.UNLOGGED,

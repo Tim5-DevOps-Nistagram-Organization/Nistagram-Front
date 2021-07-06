@@ -6,9 +6,16 @@ import ProfileViewFromat from "./ViewProfileFormat";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
+import * as SearchService from "../../../services/SearchService";
+import PostList from "../../post/view/PostList";
+import { Pagination } from "@material-ui/lab";
 
-function ViewProfile({ username, role }) {
+function ViewProfile({ username, me, role }) {
   const [user, setUser] = useState(newUserDetails);
+  const [numOfPage, setNumOfPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [posts, setPosts] = useState([]);
+  const sizeOfPage = 21;
   const history = useHistory();
 
   useEffect(() => {
@@ -26,6 +33,11 @@ function ViewProfile({ username, role }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
+  useEffect(() => {
+    loadPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, numOfPage]);
+
   function loadUser() {
     UserService.getByUsername(username)
       .then((data) => {
@@ -35,6 +47,28 @@ function ViewProfile({ username, role }) {
         toast.error(error.message);
       });
   }
+
+  function loadPosts() {
+    if (
+      !user.private ||
+      user.friend ||
+      (username === undefined && user.username !== "")
+    ) {
+      const param = username ? username : me;
+      SearchService.user(param, numOfPage - 1, sizeOfPage)
+        .then((data) => {
+          setPosts(data["content"]);
+          setTotalPages(data["totalPages"]);
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
+    }
+  }
+
+  const handleChangePage = (event, value) => {
+    setNumOfPage(value);
+  };
 
   function handleOnAddPost(event) {
     event.preventDefault();
@@ -95,22 +129,41 @@ function ViewProfile({ username, role }) {
   }
 
   return (
-    <ProfileViewFromat
-      user={user}
-      myProfile={username === undefined}
-      role={role}
-      onAddPost={handleOnAddPost}
-      onFollowRequests={handleOnFollowRequests}
-      onFollow={handleFollow}
-      onMute={handleMute}
-      onUnfollow={handleUnfollow}
-      onUnmute={handleUnmute}
-    />
+    <>
+      <ProfileViewFromat
+        user={user}
+        myProfile={username === undefined}
+        role={role}
+        onAddPost={handleOnAddPost}
+        onFollowRequests={handleOnFollowRequests}
+        onFollow={handleFollow}
+        onMute={handleMute}
+        onUnfollow={handleUnfollow}
+        onUnmute={handleUnmute}
+      />
+      {(!user.private ||
+        user.friend ||
+        (username === undefined && user.username !== "")) && (
+        <>
+          <PostList posts={posts} />
+          {totalPages > 0 && (
+            <div style={{ justifyContent: "center", display: "flex" }}>
+              <Pagination
+                count={totalPages}
+                page={numOfPage}
+                onChange={handleChangePage}
+              />
+            </div>
+          )}
+        </>
+      )}
+    </>
   );
 }
 
 ViewProfile.propTypes = {
   username: PropTypes.string,
+  me: PropTypes.string.isRequired,
   role: PropTypes.string.isRequired,
 };
 
@@ -118,6 +171,7 @@ function mapStateToProps(state, ownProps) {
   const username = ownProps.match.params.username;
   return {
     username,
+    me: state.username,
     role: state.userRole,
   };
 }

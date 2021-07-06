@@ -7,6 +7,7 @@ import SearchForm from "./SearchForm";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import PostList from "../post/view/PostList";
 
 function Search({ username }) {
   const [tab, setTab] = useState(0);
@@ -14,7 +15,8 @@ function Search({ username }) {
   const [numOfPage, setNumOfPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [users, setUsers] = useState([]);
-  const sizeOfPage = 1;
+  const [posts, setPosts] = useState([]);
+  const sizeOfPage = 21;
   const history = useHistory();
 
   useEffect(() => {
@@ -22,6 +24,13 @@ function Search({ username }) {
       SearchService.searchUsers(text, numOfPage - 1, sizeOfPage).then(
         (data) => {
           setUsers(data["content"]);
+          setTotalPages(data["totalPages"]);
+        }
+      );
+    } else {
+      SearchService.searchPosts(text, numOfPage - 1, sizeOfPage).then(
+        (data) => {
+          setPosts(data["content"]);
           setTotalPages(data["totalPages"]);
         }
       );
@@ -56,6 +65,7 @@ function Search({ username }) {
       <SearchTabs onChange={handleChangeTab} value={tab} />
       <SearchForm onChange={handleChangeText} text={text} />
       {tab === 0 && <SearchUsers users={users} onView={handleView} />}
+      {tab === 1 && <PostList posts={posts} />}
       {totalPages > 0 && (
         <div style={{ justifyContent: "center", display: "flex" }}>
           <Pagination

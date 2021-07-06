@@ -1,4 +1,10 @@
-import { base, createHeaders, handleError, handleResponseText } from "./Utils";
+import {
+  base,
+  createHeaders,
+  handleError,
+  handleResponse,
+  handleResponseText,
+} from "./Utils";
 
 const baseUrl = base + "post/post/";
 
@@ -10,5 +16,15 @@ export function create(data) {
     body: JSON.stringify(data),
   })
     .then(handleResponseText)
+    .catch(handleError);
+}
+
+export function getById(id) {
+  const headers = createHeaders();
+  return fetch(baseUrl + id, {
+    method: "GET",
+    headers,
+  })
+    .then(handleResponse)
     .catch(handleError);
 }

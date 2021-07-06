@@ -30,6 +30,11 @@ function Header({ role, logout, checkUserRole }) {
           Home
         </NavLink>
       </Button>
+      <Button>
+        <NavLink to="/search" activeStyle={activeStyle} exact>
+          Search
+        </NavLink>
+      </Button>
       {role === Role.UNLOGGED && (
         <>
           {" | "}
