@@ -85,6 +85,16 @@ function Header({ role, logout, checkUserRole }) {
           </Button>
         </>
       )}
+      {role === Role.ROLE_ADMIN && (
+        <>
+          {" | "}
+          <Button>
+            <NavLink to="/reports" activeStyle={activeStyle}>
+              Unappropriate content
+            </NavLink>
+          </Button>
+        </>
+      )}
       {(role === Role.ROLE_REGULAR ||
         role === Role.ROLE_AGENT ||
         role === Role.ROLE_ADMIN) && (

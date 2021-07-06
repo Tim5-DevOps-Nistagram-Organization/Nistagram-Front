@@ -71,3 +71,33 @@ export function unappropriatedContent(data) {
     .then(handleResponseText)
     .catch(handleError);
 }
+
+export function reports() {
+  const headers = createHeaders();
+  return fetch(baseUrl + "unappropriatedContent/requests", {
+    method: "GET",
+    headers,
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+export function reportAccept(id) {
+  const headers = createHeaders();
+  return fetch(baseUrl + "unappropriatedContent/approve/" + id, {
+    method: "PUT",
+    headers,
+  })
+    .then(handleResponseText)
+    .catch(handleError);
+}
+
+export function reportReject(id) {
+  const headers = createHeaders();
+  return fetch(baseUrl + "unappropriatedContent/reject/" + id, {
+    method: "PUT",
+    headers,
+  })
+    .then(handleResponseText)
+    .catch(handleError);
+}

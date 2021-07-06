@@ -16,6 +16,7 @@ import ViewProfile from "./profile/view/ViewProfile";
 import PostAdd from "./post/add/PostAdd";
 import FollowRequests from "./profile/requests/FollowRequests";
 import RegistrationRequests from "./registration/requests/RegistrationRequests";
+import Reports from "./post/reports/Reports";
 
 function App() {
   return (
@@ -91,6 +92,12 @@ function App() {
         <GuardedRoute
           path="/registration/requests"
           component={RegistrationRequests}
+          roles={[Role.ROLE_ADMIN]}
+          redirect="/login"
+        />
+        <GuardedRoute
+          path="/reports"
+          component={Reports}
           roles={[Role.ROLE_ADMIN]}
           redirect="/login"
         />
