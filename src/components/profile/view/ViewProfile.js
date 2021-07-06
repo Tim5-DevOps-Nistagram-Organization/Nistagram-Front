@@ -128,6 +128,10 @@ function ViewProfile({ username, me, role }) {
       });
   }
 
+  function handleReaction(value) {
+    history.push("/post/reaction/" + value);
+  }
+
   return (
     <>
       <ProfileViewFromat
@@ -140,6 +144,7 @@ function ViewProfile({ username, me, role }) {
         onMute={handleMute}
         onUnfollow={handleUnfollow}
         onUnmute={handleUnmute}
+        onReaction={handleReaction}
       />
       {(!user.private ||
         user.friend ||

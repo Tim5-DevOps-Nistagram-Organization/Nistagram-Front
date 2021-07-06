@@ -9,7 +9,7 @@ import * as Role from "../model/Role";
 import PageNotFound from "./PageNotFound";
 import Registration from "./registration/Registration";
 import Login from "./login/Login";
-import Home from "./home/Home";
+import ShowPosts from "./post/ShowPosts";
 import Search from "./search/Search";
 import EditProfile from "./profile/edit/EditProfile";
 import ViewProfile from "./profile/view/ViewProfile";
@@ -24,7 +24,7 @@ function App() {
         <GuardedRoute
           exact
           path="/"
-          component={Home}
+          component={ShowPosts}
           roles={[
             Role.UNLOGGED,
             Role.ROLE_REGULAR,
@@ -71,6 +71,13 @@ function App() {
         <GuardedRoute
           path="/post/add"
           component={PostAdd}
+          roles={[Role.ROLE_REGULAR, Role.ROLE_AGENT]}
+          redirect="/login"
+        />
+        <GuardedRoute
+          exact
+          path="/post/reaction/:option"
+          component={ShowPosts}
           roles={[Role.ROLE_REGULAR, Role.ROLE_AGENT]}
           redirect="/login"
         />
