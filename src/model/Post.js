@@ -11,16 +11,20 @@ export class Post {
 }
 
 export class PostDetails {
+  id;
   mediaId;
   username;
   description;
+  reaction;
 
-  constructor(mediaId, username, description) {
+  constructor(id, mediaId, username, description, reaction) {
+    this.id = id;
     this.mediaId = mediaId;
     this.username = username;
     this.description = description;
+    this.reaction = reaction;
   }
 }
 
 export const newPost = () => new Post(null, "", []);
-export const newPostDetails = () => new PostDetails(null, "", "");
+export const newPostDetails = () => new PostDetails(null, null, "", "", null);
