@@ -6,11 +6,11 @@ import {
   handleResponseText,
 } from "./Utils";
 
-const baseUrl = base + "auth/user/";
+const baseUrl = base + "auth/";
 
 export function login(data) {
   const headers = createHeaders();
-  return fetch(baseUrl + "login", {
+  return fetch(baseUrl + "user/login", {
     method: "POST",
     headers,
     body: JSON.stringify(data),
@@ -19,9 +19,20 @@ export function login(data) {
     .catch(handleError);
 }
 
-export function registration(data) {
+export function registrationRegular(data) {
   const headers = createHeaders();
-  return fetch(baseUrl + "registration", {
+  return fetch(baseUrl + "user/registration", {
+    method: "POST",
+    headers,
+    body: JSON.stringify(data),
+  })
+    .then(handleResponseText)
+    .catch(handleError);
+}
+
+export function registrationAgetn(data) {
+  const headers = createHeaders();
+  return fetch(baseUrl + "agent/registration", {
     method: "POST",
     headers,
     body: JSON.stringify(data),
