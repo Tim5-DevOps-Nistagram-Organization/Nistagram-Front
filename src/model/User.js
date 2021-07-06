@@ -107,4 +107,4 @@ export const newUserRequest = (user) =>
     user.biography
   );
 export const newUserDetails = () =>
-  new UserDetails("", "", "", "", "", "", "", 0, 0, 0, false, false, false);
+  new UserDetails("", "", "", "", "", "", "", 0, 0, 0, true, false, false);
