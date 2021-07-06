@@ -21,7 +21,7 @@ function ShowPosts({ option }) {
   }, [option]);
 
   useEffect(() => {
-    loadPosts(numOfPage - 1);
+    loadPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numOfPage]);
 
