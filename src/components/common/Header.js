@@ -75,7 +75,19 @@ function Header({ role, logout, checkUserRole }) {
           </Button>
         </>
       )}
-      {(role === Role.ROLE_REGULAR || role === Role.ROLE_AGENT) && (
+      {role === Role.ROLE_ADMIN && (
+        <>
+          {" | "}
+          <Button>
+            <NavLink to="/registration/requests" activeStyle={activeStyle}>
+              Registration requests
+            </NavLink>
+          </Button>
+        </>
+      )}
+      {(role === Role.ROLE_REGULAR ||
+        role === Role.ROLE_AGENT ||
+        role === Role.ROLE_ADMIN) && (
         <>
           {" | "}
           <Button onClick={handleLogOut}>Log out</Button>
