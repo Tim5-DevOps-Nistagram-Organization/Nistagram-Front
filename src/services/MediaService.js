@@ -5,7 +5,7 @@ import {
   handleResponseText,
 } from "./Utils";
 
-const baseUrl = base + "/media/media/";
+export const baseUrl = base + "/media/media/";
 
 export function upload(file) {
   const formData = new FormData();
