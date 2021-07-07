@@ -15,6 +15,7 @@ function ProfileViewFromat({
   myProfile,
   role,
   onAddPost,
+  onAddCampaign,
   onFollowRequests,
   onFollow,
   onUnfollow,
@@ -41,6 +42,17 @@ function ProfileViewFromat({
                   >
                     Add post
                   </Button>{" "}
+                  {role === ROLE_AGENT && (
+                    <>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={onAddCampaign}
+                      >
+                        Add campaign
+                      </Button>{" "}
+                    </>
+                  )}
                   <Button
                     variant="outlined"
                     color="primary"
@@ -164,6 +176,7 @@ ProfileViewFromat.propTypes = {
   myProfile: PropTypes.bool.isRequired,
   role: PropTypes.string.isRequired,
   onAddPost: PropTypes.func.isRequired,
+  onAddCampaign: PropTypes.func.isRequired,
   onFollowRequests: PropTypes.func.isRequired,
   onFollow: PropTypes.func.isRequired,
   onUnfollow: PropTypes.func.isRequired,

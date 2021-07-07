@@ -75,7 +75,6 @@ function PostAdd() {
     if (!formIsValid()) return;
 
     const data = getTagsFromDescription();
-    console.log(data);
     setSaving(true);
 
     postService

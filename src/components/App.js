@@ -14,6 +14,7 @@ import Search from "./search/Search";
 import EditProfile from "./profile/edit/EditProfile";
 import ViewProfile from "./profile/view/ViewProfile";
 import PostAdd from "./post/add/PostAdd";
+import CampaignAdd from "./campaign/add/CampaignAdd";
 import FollowRequests from "./profile/requests/FollowRequests";
 import RegistrationRequests from "./registration/requests/RegistrationRequests";
 import Reports from "./post/reports/Reports";
@@ -81,6 +82,12 @@ function App() {
           path="/post/reaction/:option"
           component={ShowPosts}
           roles={[Role.ROLE_REGULAR, Role.ROLE_AGENT]}
+          redirect="/login"
+        />
+        <GuardedRoute
+          path="/campaign/add"
+          component={CampaignAdd}
+          roles={[Role.ROLE_AGENT]}
           redirect="/login"
         />
         <GuardedRoute
