@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Dialog, DialogContent } from "@material-ui/core";
-import PropTypes from "prop-types";
+import PropTypes, { object } from "prop-types";
 import {
   ThumbUp,
   ThumbUpOutlined,
@@ -13,6 +13,8 @@ import TextInput from "../../common/TextInput";
 
 function PostView({
   post,
+  comments,
+  commentText,
   baseUrl,
   open,
   role,
@@ -26,6 +28,7 @@ function PostView({
   onOpenReport,
   onReport,
   onChange,
+  onAddComment,
 }) {
   return (
     <Dialog
@@ -66,6 +69,36 @@ function PostView({
         <p>
           <b>{post.username}</b> {post.description}
         </p>
+        {comments.map((c, index) => (
+          <p key={index}>
+            <b>{c.writerUsername}</b> {c.message} <br />{" "}
+            <small>{c.date.substring(0, 10)}</small>
+          </p>
+        ))}
+        {(role === ROLE_AGENT || role === ROLE_REGULAR) && (
+          <form onSubmit={onAddComment} style={{ width: "100%", margin: 0 }}>
+            {errors.onSubmitComment && (
+              <Alert severity="error">{errors.onSubmitComment}</Alert>
+            )}
+            <TextInput
+              name="comment"
+              label="Comment"
+              value={commentText}
+              onChange={onChange}
+            />
+            <br />
+            <br />
+            <Button
+              type="submit"
+              variant="outlined"
+              color="primary"
+              className="field"
+            >
+              Add comment
+            </Button>
+          </form>
+        )}
+        <br />
         {(role === ROLE_AGENT || role === ROLE_REGULAR) && !show && (
           <Button
             onClick={() => onOpenReport()}
@@ -108,6 +141,8 @@ function PostView({
 
 PostView.propTypes = {
   post: PropTypes.object.isRequired,
+  comments: PropTypes.arrayOf(object).isRequired,
+  commentText: PropTypes.string.isRequired,
   baseUrl: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   role: PropTypes.string.isRequired,
@@ -121,6 +156,7 @@ PostView.propTypes = {
   onOpenReport: PropTypes.func.isRequired,
   onReport: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  onAddComment: PropTypes.func.isRequired,
 };
 
 export default PostView;

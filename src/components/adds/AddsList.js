@@ -28,7 +28,7 @@ function AddsList({ adds }) {
       <GridList cellHeight={180} className={classes.gridList} cols={3}>
         {adds.map((add, index) => (
           <GridListTile key={index}>
-            <a target="_blank" href={add.websiteUrl}>
+            <a target="_blank" href={add.websiteUrl} rel="noreferrer">
               <img
                 src={baseUrl + add.mediaId}
                 alt={"Ups"}
