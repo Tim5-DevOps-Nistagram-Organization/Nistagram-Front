@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Dialog, DialogContent } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { ROLE_AGENT } from "../../../model/Role";
-import { useHistory } from "react-router-dom";
 
 function CampaignView({ campaign, baseUrl, open, role, onClose, onDelete }) {
   return (

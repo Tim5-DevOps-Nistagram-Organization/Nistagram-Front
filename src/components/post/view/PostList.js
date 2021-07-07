@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import { Reaction, ReactionCreate } from "../../../model/Reaction";
 import { UnappropriatedContent } from "../../../model/UnappropriatedContent";
 import { baseUrl } from "../../../services/MediaService";
+import { Comment } from "../../../model/Comment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,13 +31,16 @@ const useStyles = makeStyles((theme) => ({
 
 function PostList({ posts, role }) {
   const [post, setPost] = useState(newPostDetails);
+  const [comments, setComments] = useState([]);
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
+  const [commentText, setCommentText] = useState("");
   const [reason, setReason] = useState("");
   const [errors, setErrors] = useState({});
 
   function handleOnView(postId) {
     loadPost(postId);
+    loadComments(postId);
   }
 
   function loadPost(postId) {
@@ -44,6 +48,14 @@ function PostList({ posts, role }) {
       .then((data) => {
         setPost(data);
         setOpen(true);
+      })
+      .catch((error) => toast.error(error.message));
+  }
+
+  function loadComments(postId) {
+    PostService.getCommentsByPostId(postId)
+      .then((data) => {
+        setComments(data);
       })
       .catch((error) => toast.error(error.message));
   }
@@ -89,8 +101,12 @@ function PostList({ posts, role }) {
   }
 
   function handleChange(event) {
-    const { value } = event.target;
-    setReason(value);
+    const { name, value } = event.target;
+    if (name === "comment") {
+      setCommentText(value);
+    } else {
+      setReason(value);
+    }
   }
 
   function formIsValid() {
@@ -119,6 +135,29 @@ function PostList({ posts, role }) {
       });
   }
 
+  function formIsValidComment() {
+    const errors = {};
+
+    if (!commentText) errors.onSubmitComment = "Commment text is required.";
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  }
+
+  function handleAddComment(event) {
+    event.preventDefault();
+    if (!formIsValidComment()) return;
+
+    PostService.createComment(new Comment(commentText, post.id))
+      .then((data) => {
+        setComments((prevValue) => [...prevValue, data]);
+        setCommentText("");
+      })
+      .catch((error) => {
+        setErrors({ onSubmitComment: error.message });
+      });
+  }
+
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -135,6 +174,8 @@ function PostList({ posts, role }) {
       </GridList>
       <PostView
         post={post}
+        comments={comments}
+        commentText={commentText}
         baseUrl={baseUrl}
         onClose={() => setOpen(false)}
         open={open}
@@ -148,6 +189,7 @@ function PostList({ posts, role }) {
         onOpenReport={() => setShow(true)}
         onReport={handleReport}
         onChange={handleChange}
+        onAddComment={handleAddComment}
       />
     </div>
   );

@@ -101,3 +101,24 @@ export function reportReject(id) {
     .then(handleResponseText)
     .catch(handleError);
 }
+
+export function getCommentsByPostId(id) {
+  const headers = createHeaders();
+  return fetch(baseUrl + "comment/" + id, {
+    method: "GET",
+    headers,
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
+
+export function createComment(data) {
+  const headers = createHeaders();
+  return fetch(baseUrl + "comment/", {
+    method: "POST",
+    headers,
+    body: JSON.stringify(data),
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}
