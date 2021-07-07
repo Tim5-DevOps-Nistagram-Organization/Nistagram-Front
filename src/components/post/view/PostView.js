@@ -73,12 +73,12 @@ function PostView({
             color="primary"
             variant="outlined"
           >
-            Report unappropriate content
+            Report unappropriated content
           </Button>
         )}
         {show && (
           <form onSubmit={onReport} style={{ width: "100%", margin: 0 }}>
-            <h4>Report unappropriate content</h4>
+            <h4>Report unappropriated content</h4>
             {errors.onSubmit && (
               <Alert severity="error">{errors.onSubmit}</Alert>
             )}
