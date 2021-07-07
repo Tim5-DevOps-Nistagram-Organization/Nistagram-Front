@@ -10,10 +10,9 @@ import {
   TableRow,
 } from "@material-ui/core";
 import React from "react";
-import { base } from "../../../services/Utils";
+import { baseUrl } from "../../../services/MediaService";
 
 function ReportsForm({ reports, onDecision }) {
-  const baseUrl = base + "media/media/";
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">

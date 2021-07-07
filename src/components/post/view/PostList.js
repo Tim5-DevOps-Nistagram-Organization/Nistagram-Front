@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import PropTypes, { object } from "prop-types";
-import { base } from "../../../services/Utils";
 import { newPostDetails } from "../../../model/Post";
 import PostView from "./PostView";
 import * as PostService from "../../../services/PostService";
@@ -11,6 +10,7 @@ import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { Reaction, ReactionCreate } from "../../../model/Reaction";
 import { UnappropriatedContent } from "../../../model/UnappropriatedContent";
+import { baseUrl } from "../../../services/MediaService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,7 +120,6 @@ function PostList({ posts, role }) {
   }
 
   const classes = useStyles();
-  const baseUrl = base + "media/media/";
   return (
     <div className={classes.root}>
       <GridList cellHeight={180} className={classes.gridList} cols={3}>

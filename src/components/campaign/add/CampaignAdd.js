@@ -64,8 +64,10 @@ function CampaignAdd() {
     if (!startDate) errors.startDate = "Start date is requiered.";
     if (endDate && endDate <= startDate)
       errors.endDate = "End date must be after start date.";
-    if (endDate && numShowsPerDay < 1)
-      errors.numShowsPerDay = "Must have num of shows per day";
+    if (numShowsPerDay < 1)
+      errors.numShowsPerDay = "Num of shows per day must be greater then 0";
+    if (endDate && numShowsPerDay < 2)
+      errors.numShowsPerDay = "Num of shows per day must be greater then 1";
 
     for (let a of advertisements) {
       if (!a.websiteUrl) {
