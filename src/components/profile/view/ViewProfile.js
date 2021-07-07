@@ -7,14 +7,17 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import * as SearchService from "../../../services/SearchService";
+import * as CampaignService from "../../../services/CampaignService";
 import PostList from "../../post/view/PostList";
 import { Pagination } from "@material-ui/lab";
+import CampaignViewList from "../../campaign/view/CampaignViewList";
 
 function ViewProfile({ username, me, role }) {
   const [user, setUser] = useState(newUserDetails);
   const [numOfPage, setNumOfPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [posts, setPosts] = useState([]);
+  const [campaings, setCampaings] = useState([]);
   const sizeOfPage = 21;
   const history = useHistory();
 
@@ -30,6 +33,7 @@ function ViewProfile({ username, me, role }) {
           toast.error(error.message);
         });
     }
+    loadCampaigns();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
@@ -64,6 +68,17 @@ function ViewProfile({ username, me, role }) {
           toast.error(error.message);
         });
     }
+  }
+
+  function loadCampaigns() {
+    const param = username ? username : me;
+    CampaignService.getCampaings(param)
+      .then((data) => {
+        setCampaings(data);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   }
 
   const handleChangePage = (event, value) => {
@@ -152,6 +167,7 @@ function ViewProfile({ username, me, role }) {
         onUnmute={handleUnmute}
         onReaction={handleReaction}
       />
+      <CampaignViewList campaigns={campaings} />
       {(!user.private ||
         user.friend ||
         (username === undefined && user.username !== "")) && (

@@ -84,3 +84,13 @@ export function searchReactions(reaction, numOfPage, sizeOfPage) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function adds(num) {
+  const headers = createHeaders();
+  return fetch(`${baseUrl}adds?numOfVisit=${encodeURIComponent(num)}`, {
+    method: "GET",
+    headers,
+  })
+    .then(handleResponse)
+    .catch(handleError);
+}

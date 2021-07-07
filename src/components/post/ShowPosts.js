@@ -4,11 +4,14 @@ import PostList from "./view/PostList";
 import { Pagination } from "@material-ui/lab";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { UNLOGGED } from "../../model/Role";
+import AddsList from "../adds/AddsList";
 
-function ShowPosts({ option }) {
+function ShowPosts({ option, role }) {
   const [numOfPage, setNumOfPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [posts, setPosts] = useState([]);
+  const [adds, setAdds] = useState([]);
   const sizeOfPage = 21;
 
   useEffect(() => {
@@ -16,6 +19,9 @@ function ShowPosts({ option }) {
       loadPosts();
     } else {
       setNumOfPage(1);
+    }
+    if (!option && role !== UNLOGGED) {
+      loadAdds();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [option]);
@@ -41,6 +47,27 @@ function ShowPosts({ option }) {
     }
   }
 
+  function loadAdds() {
+    let num = localStorage.getItem("num");
+    let date = localStorage.getItem("date");
+    num = num === null || num === undefined ? 0 : parseInt(num);
+    date = date === null || date === undefined ? new Date() : new Date(date);
+    const today = new Date();
+    if (
+      today.getFullYear() !== date.getFullYear() ||
+      today.getMonth() !== date.getMonth() ||
+      today.getDate() !== date.getDate()
+    ) {
+      num = 0;
+      date = today;
+    }
+    SearchService.adds(num).then((data) => {
+      setAdds(data);
+      localStorage.setItem("num", num + 1);
+      localStorage.setItem("date", date);
+    });
+  }
+
   const handleChangePage = (event, value) => {
     setNumOfPage(value);
   };
@@ -64,18 +91,21 @@ function ShowPosts({ option }) {
       ) : (
         <h3>Nothing to show</h3>
       )}
+      {!option && role !== UNLOGGED && <AddsList adds={adds} />}
     </>
   );
 }
 
 ShowPosts.propTypes = {
   option: PropTypes.string,
+  role: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
   const option = ownProps.match.params.option;
   return {
     option,
+    role: state.userRole,
   };
 }
 
