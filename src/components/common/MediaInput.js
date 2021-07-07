@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import PropTypes, { number, string } from "prop-types";
 import { Button } from "@material-ui/core";
 
-const MediaInput = ({ name, label, mediaUploaded, onChange, onUpload }) => {
+const MediaInput = ({
+  name,
+  label,
+  disabled = false,
+  hide = false,
+  mediaUploaded,
+  onChange,
+  onUpload,
+}) => {
   const [value, setValue] = useState("");
 
   const toBase64 = (file) =>
@@ -26,6 +34,7 @@ const MediaInput = ({ name, label, mediaUploaded, onChange, onUpload }) => {
   return (
     <>
       <Button
+        disabled={disabled}
         variant="contained"
         component="label"
         color={"primary"}
@@ -41,7 +50,7 @@ const MediaInput = ({ name, label, mediaUploaded, onChange, onUpload }) => {
         />
       </Button>
       <br />
-      {!mediaUploaded && (
+      {!hide && !mediaUploaded && (
         <Button
           variant="contained"
           component="label"
@@ -70,6 +79,8 @@ MediaInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   onUpload: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([string, number]),
+  disabled: PropTypes.bool,
+  hide: PropTypes.bool,
 };
 
 export default MediaInput;

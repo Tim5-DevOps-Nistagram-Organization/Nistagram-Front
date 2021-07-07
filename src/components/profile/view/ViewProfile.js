@@ -75,6 +75,11 @@ function ViewProfile({ username, me, role }) {
     history.push("/post/add");
   }
 
+  function handleOnAddCampaign(event) {
+    event.preventDefault();
+    history.push("/campaign/add");
+  }
+
   function handleOnFollowRequests(event) {
     event.preventDefault();
     history.push("/follow/requests");
@@ -139,6 +144,7 @@ function ViewProfile({ username, me, role }) {
         myProfile={username === undefined}
         role={role}
         onAddPost={handleOnAddPost}
+        onAddCampaign={handleOnAddCampaign}
         onFollowRequests={handleOnFollowRequests}
         onFollow={handleFollow}
         onMute={handleMute}
